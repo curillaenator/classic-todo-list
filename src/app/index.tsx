@@ -1,14 +1,23 @@
 import React, { FC } from 'react';
+import { Container, Box, Heading, Stack } from '@chakra-ui/react';
+import { Provider as ChakraProvider } from '@src/components/ui/provider';
 
-// import type {ComponentProps} from './interfaces'
-import styles from './app.module.scss';
+import { TodoForm } from '@src/components/todoForm';
 
-const App: FC = () => {
-  return (
-    <div className={styles.app}>
-      <h1>Hi!</h1>
-    </div>
-  );
-};
+const App: FC = () => (
+  <ChakraProvider>
+    <Container as='main' data-app-container>
+      <Stack w='100%' h='100vh'>
+        <Box w='100%' p={6} flex='0 0 auto'>
+          <Heading size='6xl'>Mindbox TODOs</Heading>
+        </Box>
+
+        <Box w='100%' p={6} flex='1 1 auto'>
+          <TodoForm />
+        </Box>
+      </Stack>
+    </Container>
+  </ChakraProvider>
+);
 
 export { App };

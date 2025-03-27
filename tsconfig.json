@@ -8,7 +8,7 @@
     "baseUrl": ".",
     "skipLibCheck": true,
     "module": "esnext",
-    "moduleResolution": "node",
+    "moduleResolution": "Bundler",
     "target": "esnext",
     "strictNullChecks": true,
     "allowJs": true,
