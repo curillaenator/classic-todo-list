@@ -1,0 +1,39 @@
+:root::-webkit-scrollbar {
+  display: none;
+}
+
+@font-face {
+  font-family: 'SanFrancisco';
+  src: url('/fonts/SFNSRounded.woff2') format('woff2');
+  font-style: normal;
+}
+
+html {
+  --layout-ff: system-ui-rounded, ui-rounded, 'SanFrancisco', sans-serif;
+
+  font-family: var(--layout-ff);
+  background-color: var(--layout-bgc, #fff);
+}
+
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+button {
+  font-family: var(--layout-ff);
+  outline: none;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+input,
+textarea {
+  font-family: var(--layout-ff);
+  outline: none;
+  border: none;
+}

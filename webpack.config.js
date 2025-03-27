@@ -18,7 +18,7 @@ module.exports = {
   },
 
   devServer: {
-    port: 5555,
+    port: 3333,
     historyApiFallback: true,
   },
 
@@ -99,8 +99,6 @@ module.exports = {
       },
     ],
   },
-
-  // devtool: 'source-map', // turn off on final production
 
   optimization: {
     splitChunks: {
