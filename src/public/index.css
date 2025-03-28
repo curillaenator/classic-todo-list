@@ -1,13 +1,3 @@
 :root::-webkit-scrollbar {
   display: none;
 }
-
-@font-face {
-  font-family: 'SanFrancisco';
-  src: url('/SFNSRounded.woff2') format('woff2');
-  font-style: normal;
-}
-
-/* html {
-  background-color: var(--chakra-colors-bg, #fff);
-} */
