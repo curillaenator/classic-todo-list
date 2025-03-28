@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { useForm } from 'react-hook-form';
-import { Stack, Box, Field, InputGroup, Input, Button, Textarea } from '@chakra-ui/react';
+import { Stack, Field, InputGroup, Input, Button, Textarea } from '@chakra-ui/react';
 import { v4 as getId } from 'uuid';
 
 import { createTodo } from '@src/entities/todo';
@@ -64,7 +64,7 @@ const TodoForm: FC = () => {
             {...register('description', {
               required: 'Set description',
               minLength: { value: 1, message: 'must be at least 1 characters' },
-              maxLength: { value: 256, message: 'no more than 128 chars' },
+              maxLength: { value: 256, message: 'no more than 256 chars' },
             })}
           />
 
@@ -76,9 +76,7 @@ const TodoForm: FC = () => {
         </Button>
       </Stack>
 
-      <Box flex='1 1 auto' padding={6} borderRadius={8} boxShadow='inset 0 0 0 1px var(--chakra-colors-border)'>
-        <TodoList />
-      </Box>
+      <TodoList />
     </Stack>
   );
 };

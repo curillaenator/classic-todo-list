@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { Grid, Text, Stack, Flex, Box, CheckboxGroup, CheckboxCard, Button, ButtonGroup } from '@chakra-ui/react';
+import { Text, Stack, Flex, Box, CheckboxGroup, CheckboxCard, Button, ButtonGroup } from '@chakra-ui/react';
 
 import { PiTrashLight } from 'react-icons/pi';
 
@@ -13,7 +13,7 @@ const TodoList: FC = () => {
   const { items, todoFilter, setTodoFilter, clearAcomplished } = useTodoItems();
 
   return (
-    <Stack>
+    <Stack flex='1 1 auto' padding={6} borderRadius={8} boxShadow='inset 0 0 0 1px var(--chakra-colors-border)'>
       <Flex justify='space-between' mb={4}>
         <Box>{!!items.open.length && <Text>{`${items.open.length} todos are open`}</Text>}</Box>
 
@@ -38,13 +38,14 @@ const TodoList: FC = () => {
       </Flex>
 
       <CheckboxGroup>
-        <Grid templateColumns='repeat(3, 1fr)' gap={4}>
+        <Flex gap={4} wrap='wrap'>
           {items[todoFilter].map((item, itemIdx) => (
             <CheckboxCard.Root
               key={item.id}
               checked={item.accomplished}
               onCheckedChange={() => handleTodo({ ...item, accomplished: !item.accomplished })}
               colorPalette={item.accomplished ? 'green' : 'gray'}
+              minW='320px'
             >
               <CheckboxCard.HiddenInput />
 
@@ -59,7 +60,7 @@ const TodoList: FC = () => {
               </CheckboxCard.Control>
             </CheckboxCard.Root>
           ))}
-        </Grid>
+        </Flex>
       </CheckboxGroup>
     </Stack>
   );

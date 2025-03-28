@@ -16,9 +16,7 @@ const useTodoItems = () => {
   const all = useUnit($todosStore);
   const [todoFilter, setTodoFilter] = useState<TodoFilter>('all');
 
-  useEffect(() => {
-    sessionStorage.setItem('todoList', JSON.stringify(all));
-  }, [all, todoFilter]);
+  useEffect(() => sessionStorage.setItem('todoList', JSON.stringify(all)), [all]);
 
   const items: Record<TodoFilter, TodoItemProps[]> = useMemo(() => {
     const accomplished: TodoItemProps[] = [];
