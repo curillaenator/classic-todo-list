@@ -1,52 +1,80 @@
 import React, { FC } from 'react';
-import { useForm, Controller } from 'react-hook-form';
-import { Stack, Box, Field, Input, Button, Group } from '@chakra-ui/react';
+import { useForm } from 'react-hook-form';
+import { Stack, Box, Field, InputGroup, Input, Button, Textarea } from '@chakra-ui/react';
 import { v4 as getId } from 'uuid';
 
 import { createTodo } from '@src/entities/todo';
 import { TodoList } from '@src/components/todoList';
 
+import { PiJarLabelDuotone } from 'react-icons/pi';
+
+interface TodoFormFields {
+  title: string;
+  description: string;
+}
+
 const TodoForm: FC = () => {
   const {
-    control,
+    register,
     reset,
     handleSubmit,
     formState: { errors },
-  } = useForm<{ title: string }>();
+  } = useForm<TodoFormFields>();
 
   return (
     <Stack
       h='100%'
       as='form'
-      onSubmit={handleSubmit(({ title }) => {
-        createTodo({ id: getId(), title, createdAt: Date.now(), accomplished: false });
-        reset({ title: '' });
+      onKeyDown={(e) => e.key === 'Enter' && e.preventDefault()}
+      onSubmit={handleSubmit(({ title, description }) => {
+        createTodo({
+          id: getId(),
+          title,
+          description,
+          createdAt: Date.now(),
+          accomplished: false,
+        });
+
+        reset();
       })}
     >
-      <Box padding={6} borderRadius={8} boxShadow='inset 0 0 0 1px var(--chakra-colors-border)'>
-        <Controller
-          control={control}
-          name='title'
-          rules={{
-            required: 'Set title',
-            minLength: { value: 3, message: 'must be at least 3 characters' },
-            maxLength: { value: 128, message: 'no more than 128 chars' },
-          }}
-          render={({ field }) => (
-            <Field.Root invalid={!!errors.title}>
-              <Group attached w='full'>
-                <Input {...field} placeholder='what need to be done' aria-required type='text' />
+      <Stack padding={6} borderRadius={8} boxShadow='inset 0 0 0 1px var(--chakra-colors-border)'>
+        <Field.Root invalid={!!errors.title}>
+          <InputGroup startElement={<PiJarLabelDuotone />}>
+            <Input
+              placeholder='Name of what need to be done'
+              aria-required
+              type='text'
+              {...register('title', {
+                required: 'Set title',
+                minLength: { value: 1, message: 'must be at least 1 characters' },
+                maxLength: { value: 128, message: 'no more than 128 chars' },
+              })}
+            />
+          </InputGroup>
 
-                <Button bg='bg.subtle' variant='outline' type='submit'>
-                  Submit
-                </Button>
-              </Group>
+          {errors.title?.message && <Field.ErrorText>{errors.title.message}</Field.ErrorText>}
+        </Field.Root>
 
-              {errors.title?.message && <Field.ErrorText>{errors.title.message}</Field.ErrorText>}
-            </Field.Root>
-          )}
-        />
-      </Box>
+        <Field.Root invalid={!!errors.description}>
+          <Textarea
+            placeholder='Description'
+            variant='subtle'
+            aria-required
+            {...register('description', {
+              required: 'Set description',
+              minLength: { value: 1, message: 'must be at least 1 characters' },
+              maxLength: { value: 256, message: 'no more than 128 chars' },
+            })}
+          />
+
+          {errors.description?.message && <Field.ErrorText>{errors.description.message}</Field.ErrorText>}
+        </Field.Root>
+
+        <Button bg='bg.subtle' variant='outline' type='submit'>
+          Create TODO
+        </Button>
+      </Stack>
 
       <Box flex='1 1 auto' padding={6} borderRadius={8} boxShadow='inset 0 0 0 1px var(--chakra-colors-border)'>
         <TodoList />

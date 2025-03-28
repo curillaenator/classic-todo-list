@@ -1,3 +1,3 @@
-export { $todosStore, createTodo, handleTodo } from './store';
+export { $todosStore, createTodo, handleTodo, setFullTodoList } from './store';
 
 export type { TodoItemProps } from './interfaces';

@@ -1,63 +1,68 @@
 import React, { FC } from 'react';
-import { useUnit } from 'effector-react';
+import { Grid, Text, Stack, Flex, Box, CheckboxGroup, CheckboxCard, Button, ButtonGroup } from '@chakra-ui/react';
 
-import { Text, Stack, Flex, Box, Table, Checkbox } from '@chakra-ui/react';
+import { PiTrashLight } from 'react-icons/pi';
 
-import { $todosStore, handleTodo } from '@src/entities/todo';
+import { handleTodo } from '@src/entities/todo';
+import { useTodoItems } from './useTodoItems';
+import type { TodoFilter } from './interfaces';
 
-export const TodoList: FC = () => {
-  const todos = useUnit($todosStore);
-  const accomplishedTodos = todos.filter(({ accomplished }) => !accomplished);
+const FILTER_ITEMS: TodoFilter[] = ['all', 'open', 'accomplished'];
+
+const TodoList: FC = () => {
+  const { items, todoFilter, setTodoFilter, clearAcomplished } = useTodoItems();
 
   return (
     <Stack>
       <Flex justify='space-between' mb={4}>
-        <Box>
-          <Text>{`${accomplishedTodos.length} items left`}</Text>
-        </Box>
+        <Box>{!!items.open.length && <Text>{`${items.open.length} todos are open`}</Text>}</Box>
 
-        <Box></Box>
+        <ButtonGroup size='sm' variant='outline' attached>
+          {FILTER_ITEMS.map((filterVal) => (
+            <Button
+              key={filterVal}
+              disabled={!items.all.length}
+              variant={todoFilter === filterVal ? 'surface' : 'outline'}
+              onClick={() => setTodoFilter(filterVal)}
+            >
+              {filterVal.toUpperCase()}
+            </Button>
+          ))}
+        </ButtonGroup>
 
-        <Box>Clear</Box>
+        <ButtonGroup size='sm' variant='outline' attached>
+          <Button disabled={!items.accomplished.length} variant='outline' onClick={() => clearAcomplished()}>
+            <PiTrashLight /> Clear accomplished
+          </Button>
+        </ButtonGroup>
       </Flex>
 
-      <Box>
-        <Table.Root>
-          <Table.ColumnGroup>
-            <Table.Column htmlWidth='44px' />
-            <Table.Column />
-          </Table.ColumnGroup>
+      <CheckboxGroup>
+        <Grid templateColumns='repeat(3, 1fr)' gap={4}>
+          {items[todoFilter].map((item, itemIdx) => (
+            <CheckboxCard.Root
+              key={item.id}
+              checked={item.accomplished}
+              onCheckedChange={() => handleTodo({ ...item, accomplished: !item.accomplished })}
+              colorPalette={item.accomplished ? 'green' : 'gray'}
+            >
+              <CheckboxCard.HiddenInput />
 
-          <Table.Body>
-            {todos.map((item) => (
-              <Table.Row key={item.id}>
-                <Table.Cell>
-                  <Checkbox.Root
-                    size='sm'
-                    top='0.5'
-                    aria-label='Select row'
-                    checked={item.accomplished}
-                    onCheckedChange={() => handleTodo({ ...item, accomplished: !item.accomplished })}
-                  >
-                    <Checkbox.HiddenInput />
-                    <Checkbox.Control />
-                  </Checkbox.Root>
-                </Table.Cell>
+              <CheckboxCard.Control>
+                <CheckboxCard.Content>
+                  <CheckboxCard.Label>{`${itemIdx + 1}. ${item.title}`}</CheckboxCard.Label>
 
-                <Table.Cell>
-                  <Text>
-                    {item.accomplished ? (
-                      <s style={{ color: 'var(--chakra-colors-fg-muted)' }}>{item.title}</s>
-                    ) : (
-                      item.title
-                    )}
-                  </Text>
-                </Table.Cell>
-              </Table.Row>
-            ))}
-          </Table.Body>
-        </Table.Root>
-      </Box>
+                  <CheckboxCard.Description>{item.description}</CheckboxCard.Description>
+                </CheckboxCard.Content>
+
+                <CheckboxCard.Indicator />
+              </CheckboxCard.Control>
+            </CheckboxCard.Root>
+          ))}
+        </Grid>
+      </CheckboxGroup>
     </Stack>
   );
 };
+
+export { TodoList };
