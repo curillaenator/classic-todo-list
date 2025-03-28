@@ -1,9 +1,3 @@
 :root::-webkit-scrollbar {
   display: none;
 }
-
-@font-face {
-  font-family: 'SanFrancisco';
-  src: url('/classic-todo-list/SFNSRounded.woff2') format('woff2');
-  font-style: normal;
-}
