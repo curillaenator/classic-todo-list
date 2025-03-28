@@ -12,7 +12,7 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, 'build'),
     filename: '[name].bundle.[fullhash].js',
-    publicPath: '/',
+    publicPath: '/classic-todo-list/',
     clean: true,
   },
 
