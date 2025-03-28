@@ -1,31 +1,26 @@
 import React, { FC } from 'react';
-
 import { useForm, Controller } from 'react-hook-form';
-
 import { Stack, Box, Field, Input, Button, Group } from '@chakra-ui/react';
+import { v4 as getId } from 'uuid';
 
+import { createTodo } from '@src/entities/todo';
 import { TodoList } from '@src/components/todoList';
-
-interface TodoFormFields {
-  title: string;
-}
 
 const TodoForm: FC = () => {
   const {
     control,
+    reset,
     handleSubmit,
-    formState: {
-      errors,
-      //  dirtyFields
-    },
-  } = useForm<TodoFormFields>({ defaultValues: { title: '' } });
+    formState: { errors },
+  } = useForm<{ title: string }>();
 
   return (
     <Stack
       h='100%'
       as='form'
       onSubmit={handleSubmit(({ title }) => {
-        console.log('title', title);
+        createTodo({ id: getId(), title, createdAt: Date.now(), accomplished: false });
+        reset({ title: '' });
       })}
     >
       <Box padding={6} borderRadius={8} boxShadow='inset 0 0 0 1px var(--chakra-colors-border)'>
