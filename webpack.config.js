@@ -2,7 +2,6 @@ const path = require('path');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
   mode: 'development',
@@ -23,10 +22,6 @@ module.exports = {
 
   plugins: [
     new HTMLWebpackPlugin({ template: './src/index.html' }),
-
-    new MiniCssExtractPlugin({
-      filename: '[name].[fullhash].css',
-    }),
 
     new CleanWebpackPlugin(),
 
@@ -53,36 +48,6 @@ module.exports = {
 
   module: {
     rules: [
-      {
-        test: /\.module\.(scss|css)$/i,
-        use: [
-          MiniCssExtractPlugin.loader,
-          {
-            loader: 'css-loader',
-            options: {
-              modules: {
-                localIdentName: '[local]_[hash:base64:12]',
-                exportOnlyLocals: false,
-              },
-            },
-          },
-          'sass-loader',
-        ],
-      },
-      {
-        test: /\.(scss|css)$/i,
-        exclude: /\.module\.(scss|css)$/i,
-        use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader'],
-      },
-      ,
-      {
-        test: /\.(png|jpg|jpeg|gif)$/i,
-        type: 'asset/resource',
-      },
-      {
-        test: /\.svg$/i,
-        use: ['@svgr/webpack'],
-      },
       {
         test: /\.(js|jsx|ts|tsx)$/i,
         exclude: /node_modules/,
