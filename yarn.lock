@@ -2531,7 +2531,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@testing-library/react-hooks@npm:^8.0.1":
+"@testing-library/react-hooks@npm:8.0.1":
   version: 8.0.1
   resolution: "@testing-library/react-hooks@npm:8.0.1"
   dependencies:
@@ -5009,7 +5009,7 @@ __metadata:
     "@testing-library/dom": 10.4.0
     "@testing-library/jest-dom": 6.6.3
     "@testing-library/react": 16.2.0
-    "@testing-library/react-hooks": ^8.0.1
+    "@testing-library/react-hooks": 8.0.1
     "@testing-library/user-event": 14.6.1
     "@types/jest": 29.5.14
     "@types/node": 22.13.14
@@ -5019,7 +5019,6 @@ __metadata:
     "@typescript-eslint/parser": 8.28.0
     babel-loader: 10.0.0
     babel-plugin-import: 1.13.8
-    classnames: 2.5.1
     clean-webpack-plugin: 4.0.0
     copy-webpack-plugin: 13.0.0
     effector: 23.3.0
@@ -5048,13 +5047,6 @@ __metadata:
     webpack-dev-server: 5.2.1
   languageName: unknown
   linkType: soft
-
-"classnames@npm:2.5.1":
-  version: 2.5.1
-  resolution: "classnames@npm:2.5.1"
-  checksum: da424a8a6f3a96a2e87d01a432ba19315503294ac7e025f9fece656db6b6a0f7b5003bb1fbb51cbb0d9624d964f1b9bb35a51c73af9b2434c7b292c42231c1e5
-  languageName: node
-  linkType: hard
 
 "clean-css@npm:^5.2.2":
   version: 5.3.3
