@@ -4,7 +4,6 @@ import { Stack, Field, InputGroup, Input, Button, Textarea } from '@chakra-ui/re
 import { v4 as getId } from 'uuid';
 
 import { createTodo } from '@src/entities/todo';
-import { TodoList } from '@src/components/todoList';
 
 import { PiJarLabelDuotone } from 'react-icons/pi';
 
@@ -23,7 +22,6 @@ const TodoForm: FC = () => {
 
   return (
     <Stack
-      h='100%'
       as='form'
       onKeyDown={(e) => e.key === 'Enter' && e.preventDefault()}
       onSubmit={handleSubmit(({ title, description }) => {
@@ -75,8 +73,6 @@ const TodoForm: FC = () => {
           Create TODO
         </Button>
       </Stack>
-
-      <TodoList />
     </Stack>
   );
 };

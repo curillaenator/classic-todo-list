@@ -32,10 +32,11 @@
 
     "isolatedModules": true,
     "noImplicitOverride": true,
-    "types": ["react", "node"],
+    "types": ["react", "node", "jest", "@testing-library/jest-dom"],
     "paths": {
       "@src/*": ["src/*"]
     }
   },
+  "include": ["src", "./jest-setup.ts", "jest.config.js"],
   "exclude": ["node_modules"]
 }

@@ -3,6 +3,7 @@ import { Container, Box, Heading, Stack } from '@chakra-ui/react';
 import { Provider as ChakraProvider } from '@src/components/ui/provider';
 
 import { TodoForm } from '@src/components/todoForm';
+import { TodoList } from '@src/components/todoList';
 
 const App: FC = () => (
   <ChakraProvider>
@@ -12,9 +13,10 @@ const App: FC = () => (
           <Heading size='6xl'>Classic TODO LIST with 2025 React stack</Heading>
         </Box>
 
-        <Box w='100%' p={6} flex='1 1 auto'>
+        <Stack w='100%' p={6} flex='1 1 auto'>
           <TodoForm />
-        </Box>
+          <TodoList />
+        </Stack>
       </Stack>
     </Container>
   </ChakraProvider>
